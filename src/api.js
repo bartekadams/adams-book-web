@@ -14,11 +14,9 @@ const apiCall = async (urlSufix, method, requestData) => {
 };
 
 export const apiLogin = async (loginData) => {
-    console.log('apilogin');
     return await apiCall('login', 'POST', loginData);
 };
 
 export const apiRegister = async (registerData) => {
-  console.log('apiRegister');
   return await apiCall('register', 'POST', registerData);
 };
