@@ -5,8 +5,7 @@ import { apiLogin } from '../api';
 class LogInForm extends React.Component {
     state = {
         username: '',
-        password: '',
-        response: {}
+        password: ''
     }
 
     logIn = () => {
@@ -17,9 +16,9 @@ class LogInForm extends React.Component {
             }
         })
         .then((response) => {
-            this.setState({
-                response
-            });
+            if(response.data) {
+                this.props.setToken({ token: response.data.token, isAuthenticated: true });
+            }
         })
     }
 
@@ -46,6 +45,7 @@ class LogInForm extends React.Component {
                         <Form.Field>
                             <label>Hasło</label>
                             <Input
+                                type='password'
                                 onChange={(e) => {
                                     const password = e.target.value;
                                     this.setState({ password });

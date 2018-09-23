@@ -57,7 +57,7 @@ class Header extends React.Component {
                         Szukaj
                     </Menu.Item>
                 }
-                { this.props.isAuthenticated && 
+                { this.props.isAuthenticated &&
                     <Menu.Item
                         as={ Link }
                         to="/account"
@@ -68,6 +68,14 @@ class Header extends React.Component {
                     >
                         <Icon name='user' size='large' />
                         #nazwa użykownika
+                    </Menu.Item>
+                }
+                { this.props.isAuthenticated && 
+                    <Menu.Item
+                        name='logout'
+                        onClick={() => this.props.setToken({ isAuthenticated: false })}
+                    >
+                        Wyloguj
                     </Menu.Item>
                 }
             </Menu>
