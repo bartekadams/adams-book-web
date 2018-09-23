@@ -4,19 +4,34 @@ const apiHeaders = {
     'Content-Type': 'application/json'
   };
 
-const apiCall = async (urlSufix, method, requestData) => {
-  let response = await fetch(apiUrl + urlSufix, {
+const apiCall = async ({urlSufix, method, requestData, token}) => {
+  let request = {
     method,
-    headers: apiHeaders,
-    body: JSON.stringify(requestData)
-  });
+    headers: apiHeaders
+  };
+
+  if(token) {
+    request.headers.Authorization = 'Bearer ' + token;
+  }
+
+  console.log(request);
+
+  if(method === 'POST') {
+    request.body = JSON.stringify(requestData);
+  }
+
+  let response = await fetch(apiUrl + urlSufix, request);
   return await response.json();
 };
 
 export const apiLogin = async (loginData) => {
-    return await apiCall('login', 'POST', loginData);
+    return await apiCall({ urlSufix: 'login', method: 'POST', requestData: loginData});
 };
 
 export const apiRegister = async (registerData) => {
-  return await apiCall('register', 'POST', registerData);
+  return await apiCall({urlSufix: 'register', method: 'POST', requestData: registerData});
+};
+
+export const getNewestBooks = async ({ token }) => {
+  return await apiCall({urlSufix: 'books/newest_books', method: 'GET', token});
 };

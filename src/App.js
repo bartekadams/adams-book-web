@@ -42,7 +42,7 @@ class App extends Component {
               <Header isAuthenticated={this.state.isAuthenticated} setToken={this.setToken}/>
               { this.state.isAuthenticated ? (
                 <div>
-                  <Route exact path="/" render={() => <Home />} />
+                  <Route exact path="/" render={() => <Home token={this.state.token} />} />
                   <Route path="/mybooks" render={() => <MyBooks />} />
                   <Route path="/loans" render={() => <Loans />} />
                   <Route path="/search" render={() => <Search />} />
