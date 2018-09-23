@@ -1,21 +1,24 @@
 import React from 'react';
 import { Segment, Button, Input, Form, Header } from 'semantic-ui-react';
-import { apiLogin } from '../api';
+import { apiRegister } from '../api';
 import FieldError from './FieldError';
 
-class LogInForm extends React.Component {
+class RegistrationForm extends React.Component {
     state = {
         username: '',
         password: '',
+        passwordConfirmation: '',
         usernameErrors: [],
-        passwordErrors: []
+        passwordErrors: [],
+        passwordConfirmationErrors: []
     }
 
-    logIn = () => {
-        apiLogin({
+    register = () => {
+        apiRegister({
             user: {
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password,
+                password_confirmation: this.state.passwordConfirmation
             }
         })
         .then((response) => {
@@ -24,8 +27,9 @@ class LogInForm extends React.Component {
             } else if (response.status === 'ERROR') {
                 this.setState({
                     usernameErrors: response.data.username ? response.data.username.concat() : [],
-                    passwordErrors: response.data.password ? response.data.password.concat() : []
-                 });
+                    passwordErrors: response.data.password ? response.data.password.concat() : [],
+                    passwordConfirmationErrors: response.data.password_confirmation ? response.data.password_confirmation.concat() : []
+                });
             }
         })
     }
@@ -33,8 +37,8 @@ class LogInForm extends React.Component {
     render() {
         return (
             <div>
-                <Header as='h3'>Logowanie</Header>
-                <Segment id="login__form">
+                <Header as='h3' id="header">Rejestracja</Header>
+                <Segment>
                     <Form>
                     <Form.Field>
                             <label>Nazwa użytkownika</label>
@@ -45,9 +49,8 @@ class LogInForm extends React.Component {
                                 }}
                                 value={ this.state.username }
                                 onKeyPress={(e) => {
-                                    this.setState({ error: false });
                                     if(e.key === 'Enter') {
-                                        this.logIn();
+                                        this.register();
                                     }
                                 }}
                             />
@@ -63,20 +66,39 @@ class LogInForm extends React.Component {
                                 }}
                                 value={ this.state.password }
                                 onKeyPress={(e) => {
-                                    this.setState({ error: false });
                                     if(e.key === 'Enter') {
-                                        this.logIn();
+                                        this.register();
                                     }
                                 }}
                             />
                             <FieldError errors={this.state.passwordErrors}/>
                         </Form.Field>
-                        <Button type='submit' onClick={this.logIn} >Zaloguj</Button>
+                        <Form.Field>
+                            <label>Potwierdzenie hasła</label>
+                            <Input
+                                type='password'
+                                onChange={(e) => {
+                                    const password = e.target.value;
+                                    this.setState({ passwordConfirmation: password });
+                                }}
+                                value={ this.state.passwordConfirmation }
+                                onKeyPress={(e) => {
+                                    if(e.key === 'Enter') {
+                                        this.register();
+                                    }
+                                }}
+                            />
+                            <FieldError errors={this.state.passwordConfirmationErrors}/>
+                        </Form.Field>
+                        <Button type='submit' onClick={this.register} >Zarejestruj</Button>
                     </Form>
+                    <div>
+                        {JSON.stringify(this.state.response)}
+                    </div>
                 </Segment>
             </div>
         );
     }
 }
 
-export default LogInForm;
+export default RegistrationForm;

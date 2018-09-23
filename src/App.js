@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import LogInForm from './components/LogInForm';
 import { getTokenFromLocalStorage, setTokenInLocalStorage, clearTokenInLocalStorage } from './token';
-import { Container } from 'semantic-ui-react';
+import { Container, Divider } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LogInForm from './components/LogInForm';
+import RegistrationForm from './components/RegistrationForm';
 import Header from './components/Header';
 import Home from './components/Home';
 import MyBooks from './components/MyBooks';
@@ -48,8 +49,12 @@ class App extends Component {
                   <Route path="/account" render={() => <Account />} />
                 </div>
               ) : (
-                <LogInForm setToken={this.setToken} />
+                <div>
+                  <LogInForm setToken={this.setToken} />
+                  <RegistrationForm setToken={this.setToken} />
+                </div>
               )}
+              <Divider hidden />
             </div>
           </Router>
         </Container>

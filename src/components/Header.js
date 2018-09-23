@@ -10,7 +10,7 @@ class Header extends React.Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render = () => (        
-        <Segment inverted>
+        <Segment inverted id="header">
             <Menu inverted secondary size='large'>
                 <Menu.Item>
                     <Icon name='book' size='big' />
@@ -66,8 +66,8 @@ class Header extends React.Component {
                         position='right'
                         onClick={this.handleItemClick}
                     >
-                        <Icon name='user' size='large' />
-                        #nazwa użykownika
+                        <Icon name='user' />
+                        Moje konto
                     </Menu.Item>
                 }
                 { this.props.isAuthenticated && 
