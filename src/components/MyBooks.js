@@ -19,7 +19,7 @@ class MyBooks extends React.Component {
 
     render = () => (
         <div>
-            <Grid columns='eight'>
+            <Grid columns='six'>
                 {
                     this.state.books.map((book) => (
                         <Grid.Column key={book.id}>

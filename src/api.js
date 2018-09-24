@@ -14,8 +14,6 @@ const apiCall = async ({urlSufix, method, requestData, token}) => {
     request.headers.Authorization = 'Bearer ' + token;
   }
 
-  console.log(request);
-
   if(method === 'POST') {
     request.body = JSON.stringify(requestData);
   }
@@ -38,4 +36,8 @@ export const getNewestBooks = async ({ token, page }) => {
 
 export const getMyBooks = async ({ token }) => {
   return await apiCall({urlSufix: 'books/my_books', method: 'GET', token});
+};
+
+export const getBookDetails = async ({ token, id }) => {
+  return await apiCall({urlSufix: `books/${id}`, method: 'GET', token})
 };

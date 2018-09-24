@@ -48,7 +48,7 @@ class App extends Component {
                   <Route path="/loans" render={() => <Loans />} />
                   <Route path="/search" render={() => <Search />} />
                   <Route path="/account" render={() => <Account />} />
-                  <Route path="/books/:id" render={({ match }) => <BookDetails match={match}/>} />
+                  <Route path="/books/:id" render={({ match }) => <BookDetails match={match} token={this.state.token}/>} />
                 </div>
               ) : (
                 <div>
