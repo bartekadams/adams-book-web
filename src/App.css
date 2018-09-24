@@ -15,3 +15,13 @@
     display: flex;
     align-items: center;
 }
+
+.image__holder--small {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.book_link {
+    display: block;
+}

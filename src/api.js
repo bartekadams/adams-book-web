@@ -35,3 +35,7 @@ export const apiRegister = async (registerData) => {
 export const getNewestBooks = async ({ token, page }) => {
   return await apiCall({urlSufix: `books/newest_books?page=${page}`, method: 'GET', token});
 };
+
+export const getMyBooks = async ({ token }) => {
+  return await apiCall({urlSufix: 'books/my_books', method: 'GET', token});
+};

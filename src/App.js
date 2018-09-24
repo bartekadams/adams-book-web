@@ -11,6 +11,7 @@ import MyBooks from './components/MyBooks';
 import Loans from './components/Loans';
 import Search from './components/Search';
 import Account from './components/Account';
+import BookDetails from './components/BookDetails';
 
 class App extends Component {
   constructor(props) {
@@ -43,10 +44,11 @@ class App extends Component {
               { this.state.isAuthenticated ? (
                 <div>
                   <Route exact path="/" render={() => <Home token={this.state.token} />} />
-                  <Route path="/mybooks" render={() => <MyBooks />} />
+                  <Route path="/mybooks" render={() => <MyBooks token={this.state.token} />} />
                   <Route path="/loans" render={() => <Loans />} />
                   <Route path="/search" render={() => <Search />} />
                   <Route path="/account" render={() => <Account />} />
+                  <Route path="/books/:id" render={({ match }) => <BookDetails match={match}/>} />
                 </div>
               ) : (
                 <div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Segment, Header, Image } from 'semantic-ui-react';
 import { getNewestBooks } from '../api';
 import Waypoint from 'react-waypoint';
+import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
     state = {
@@ -25,7 +26,7 @@ class Home extends React.Component {
                 {
                     this.state.newestBooks.map((book) => (
                         <Grid.Column key={book.id}>
-                            <Segment>
+                            <Segment as={ Link } to={'/books/' + book.id} className='book_link'>
                                 <div className='image__holder'>
                                     <Image
                                         centered
@@ -33,7 +34,6 @@ class Home extends React.Component {
                                     />
                                 </div>
                                 <Header as='h3' textAlign='center'>{book.name}</Header>
-                                id: {book.id}
                             </Segment>
                         </Grid.Column>
                     ))
