@@ -1,17 +1,19 @@
 import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import { getNewestBooks } from '../api';
+import Waypoint from 'react-waypoint';
 
 class Home extends React.Component {
     state = {
-        newestBooks: []
+        newestBooks: [],
+        page: 1
     };
 
-    componentDidMount = () => {
-        getNewestBooks({ token: this.props.token })
+    loadBooks = () => {
+        getNewestBooks({ token: this.props.token, page: this.state.page })
         .then(response => {
             if(response.status === 'SUCCESS') {
-                this.setState({ newestBooks: response.data });
+                this.setState( prevState => ({ newestBooks: prevState.newestBooks.concat(response.data), page: prevState.page + 1 }));
             }
         });
     }
@@ -24,9 +26,9 @@ class Home extends React.Component {
                     this.state.newestBooks.map((book) => (
                         <Grid.Column key={book.id}>
                             <Segment>
-                                {book.name}
+                                nazwa: {book.name}
                                 <br/>
-                                {book.created_at}
+                                id: {book.id}
                             </Segment>
                         </Grid.Column>
                     ))
@@ -36,6 +38,9 @@ class Home extends React.Component {
                     <h2>Brak książek</h2>
                 }
             </Grid>
+            <Waypoint
+                onEnter={this.loadBooks}
+            />
         </div>
     );
 }
