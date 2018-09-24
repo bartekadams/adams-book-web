@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Image, Grid, Button } from 'semantic-ui-react';
+import { Segment, Image, Grid, Button, Modal } from 'semantic-ui-react';
 import { getBookDetails } from '../api';
 
 class BookDetails extends React.Component {
@@ -7,7 +7,8 @@ class BookDetails extends React.Component {
         book: null,
         createdAtText: '',
         owner: '',
-        belongsToUser: false
+        belongsToUser: false,
+        modalOpen: false
     }
 
     componentDidMount = () => {
@@ -27,16 +28,33 @@ class BookDetails extends React.Component {
         })
     }
 
+    openModal = () => {
+        this.setState({ modalOpen: true });
+    }
+
+    closeModal = () => this.setState({ modalOpen: false })
+
     render = () => (
         <div>
+            <Modal
+                open={this.state.modalOpen}
+                onClose={this.closeModal}
+                onClick={this.closeModal}
+                basic
+            >
+                <Image centered src={this.state.book ? this.state.book.book_cover.url : ""}/>
+                <br/>
+            </Modal>
             { this.state.book &&
             <Segment>
-                {
-                    //JSON.stringify(this.state.book)
-                }
                 <Grid className='book__details'>
                     <Grid.Column width={3}>
-                        <Image centered src={this.state.book.book_cover.small.url} />
+                        <Image
+                            className="clickable"
+                            centered
+                            src={this.state.book.book_cover.small.url}
+                            onClick={this.openModal}
+                        />
                     </Grid.Column>
                     <Grid.Column width={13}>
                         <h2>{this.state.book.name}</h2>

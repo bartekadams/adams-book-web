@@ -29,3 +29,7 @@
 .book__details span {
     font-weight: bold;
 }
+
+.clickable {
+    cursor: pointer;
+}
