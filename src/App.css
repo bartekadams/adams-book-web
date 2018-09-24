@@ -5,3 +5,13 @@
 #header {
     margin-bottom: 20px;
 }
+
+.ui.segment {
+    height: 100%;
+}
+
+.image__holder {
+    height: 150px;
+    display: flex;
+    align-items: center;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Segment, Header } from 'semantic-ui-react';
+import { Grid, Segment, Header, Image } from 'semantic-ui-react';
 import { getNewestBooks } from '../api';
 import Waypoint from 'react-waypoint';
 
@@ -26,8 +26,13 @@ class Home extends React.Component {
                     this.state.newestBooks.map((book) => (
                         <Grid.Column key={book.id}>
                             <Segment>
-                                nazwa: {book.name}
-                                <br/>
+                                <div className='image__holder'>
+                                    <Image
+                                        centered
+                                        src={book.book_cover.small.url}
+                                    />
+                                </div>
+                                <Header as='h3' textAlign='center'>{book.name}</Header>
                                 id: {book.id}
                             </Segment>
                         </Grid.Column>
