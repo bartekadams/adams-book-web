@@ -26,7 +26,7 @@ class Home extends React.Component {
                 {
                     this.state.newestBooks.map((book) => (
                         <Grid.Column key={book.id}>
-                            <Segment as={ Link } to={'/books/' + book.id} className='book_link'>
+                            <Segment as={ Link } to={'/books/' + book.id} className='book__link'>
                                 <div className='image__holder'>
                                     <Image
                                         centered

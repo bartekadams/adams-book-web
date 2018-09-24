@@ -23,7 +23,7 @@ class MyBooks extends React.Component {
                 {
                     this.state.books.map((book) => (
                         <Grid.Column key={book.id}>
-                            <Segment as={ Link } to={'/books/' + book.id} className='book_link'>
+                            <Segment as={ Link } to={'/books/' + book.id} className='book__link'>
                                 <div className='image__holder--small'>
                                     <Image
                                         centered

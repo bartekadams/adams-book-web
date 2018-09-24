@@ -22,6 +22,10 @@
     align-items: center;
 }
 
-.book_link {
+.book__link {
     display: block;
+}
+
+.book__details span {
+    font-weight: bold;
 }
