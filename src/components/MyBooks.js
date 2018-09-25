@@ -1,6 +1,6 @@
 import React from 'react';
 import { getMyBooks } from '../api';
-import { Grid, Segment, Header, Image } from 'semantic-ui-react';
+import { Grid, Segment, Header, Image, Button, GridColumn } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class MyBooks extends React.Component {
@@ -19,6 +19,16 @@ class MyBooks extends React.Component {
 
     render = () => (
         <div>
+            <Grid>
+                <GridColumn>
+                    <Button
+                        as={ Link }
+                        to={ '/books/new' }
+                    >
+                        Dodaj książkę
+                    </Button>
+                </GridColumn>
+            </Grid>
             <Grid columns='six'>
                 {
                     this.state.books.map((book) => (

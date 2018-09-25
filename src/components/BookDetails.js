@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, Image, Grid, Button, Modal } from 'semantic-ui-react';
 import { getBookDetails } from '../api';
+import { Link } from 'react-router-dom';
 
 class BookDetails extends React.Component {
     state = {
@@ -73,7 +74,7 @@ class BookDetails extends React.Component {
                             this.state.belongsToUser &&
                             <div>
                                 <br/>
-                                <Button>Edytuj</Button>
+                                <Button as={ Link } to={'/books/' + this.state.book.id + '/edit'}>Edytuj</Button>
                             </div>
                         }
                     </Grid.Column>

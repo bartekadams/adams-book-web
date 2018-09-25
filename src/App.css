@@ -22,6 +22,10 @@
     align-items: center;
 }
 
+.image__holder--small img {
+    max-height: 50px;
+}
+
 .book__link {
     display: block;
 }
@@ -32,4 +36,8 @@
 
 .clickable {
     cursor: pointer;
+}
+
+.delete__icon {
+    float: right;
 }

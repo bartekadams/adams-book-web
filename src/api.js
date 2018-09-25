@@ -39,5 +39,13 @@ export const getMyBooks = async ({ token }) => {
 };
 
 export const getBookDetails = async ({ token, id }) => {
-  return await apiCall({urlSufix: `books/${id}`, method: 'GET', token})
+  return await apiCall({urlSufix: `books/${id}`, method: 'GET', token});
+};
+
+export const createNewBook = async ({ token, bookData }) => {
+  return await apiCall({urlSufix: `books/`, method: 'POST', token, requestData: bookData });
+};
+
+export const addBookCover = async ({ token, id }) => {
+  return await apiCall({urlSufix: `books/${id}/update_book_cover`, method: 'PATCH', token});
 };
