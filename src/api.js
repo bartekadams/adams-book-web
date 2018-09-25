@@ -14,7 +14,7 @@ const apiCall = async ({urlSufix, method, requestData, token}) => {
     request.headers.Authorization = 'Bearer ' + token;
   }
 
-  if(method === 'POST') {
+  if(method === 'POST' || method === 'PATCH' || method === 'PUT') {
     request.body = JSON.stringify(requestData);
   }
 
@@ -46,6 +46,19 @@ export const createNewBook = async ({ token, bookData }) => {
   return await apiCall({urlSufix: `books/`, method: 'POST', token, requestData: bookData });
 };
 
-export const addBookCover = async ({ token, id }) => {
-  return await apiCall({urlSufix: `books/${id}/update_book_cover`, method: 'PATCH', token});
+const fileUpload = async ({urlSufix, method, requestData, token}) => {
+  let request = {
+    method,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    },
+    body: requestData
+  };
+
+  let response = await fetch(apiUrl + urlSufix, request);
+  return await response.json();
+};
+
+export const addBookCover = async ({ token, id, data }) => {
+  return await fileUpload({urlSufix: `books/${id}/update_book_cover`, method: 'PATCH', token, requestData: data});
 };

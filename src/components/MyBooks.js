@@ -23,7 +23,7 @@ class MyBooks extends React.Component {
                 <GridColumn>
                     <Button
                         as={ Link }
-                        to={ '/books/new' }
+                        to={ '/newbook' }
                     >
                         Dodaj książkę
                     </Button>

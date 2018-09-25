@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNewBook, addBookCover } from '../api';
+import { createNewBook } from '../api';
 import { Segment, Button, Input, Form, Header, Dropdown, Icon, TextArea } from 'semantic-ui-react'; 
 import FieldError from './FieldError';
 import PictureForm from './PictureForm';
@@ -65,7 +65,7 @@ class NewBook extends React.Component {
         return (
             <div>
             { this.state.id &&
-                <PictureForm token={this.props.token} id={this.props.id} />
+                <PictureForm token={this.props.token} id={this.state.id} messageVisible={true} />
             }
             { !this.state.id &&
                 <div>

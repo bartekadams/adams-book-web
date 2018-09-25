@@ -50,7 +50,7 @@ class App extends Component {
                   <Route path="/loans" render={() => <Loans />} />
                   <Route path="/search" render={() => <Search />} />
                   <Route path="/account" render={() => <Account />} />
-                  <Route path="/books/new" render={() => <NewBook token ={this.state.token} />} />
+                  <Route path="/newbook" render={() => <NewBook token ={this.state.token} />} />
                   <Route exact path="/books/:id" render={({ match }) => <BookDetails match={match} token={this.state.token} />} />
                   <Route path="/books/:id/edit" render={({ match }) => <BookEdit match={match} token={this.state.token} />} />
                 </div>
