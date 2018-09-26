@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Image, Grid, Button, Modal } from 'semantic-ui-react';
-import { getBookDetails, deleteBook } from '../api';
+import { getBookDetails, deleteBook, createLoan } from '../api';
 import { Link, Redirect } from 'react-router-dom';
 
 class BookDetails extends React.Component {
@@ -11,7 +11,9 @@ class BookDetails extends React.Component {
         belongsToUser: false,
         bookCoverModalOpen: false,
         deleteBookModalOpen: false,
-        bookDeletedRedirect: false
+        bookDeletedRedirect: false,
+        redirectToMyLoans: false,
+        isActiveLoan: false
     }
 
     componentDidMount = () => {
@@ -25,7 +27,8 @@ class BookDetails extends React.Component {
                     book: response.data.book,
                     owner: response.data.owner,
                     createdAtText: response.data.createdAtText,
-                    belongsToUser: response.data.ownerRequest
+                    belongsToUser: response.data.ownerRequest,
+                    isActiveLoan: response.data.isActiveLoan
                 })
             }
         })
@@ -55,13 +58,28 @@ class BookDetails extends React.Component {
     }
 
     rent = () => {
-
+        createLoan({
+            token: this.props.token,
+            data: {
+                loan: {
+                    book_id: this.state.book.id
+                }
+            }
+        })
+        .then(() => {
+            this.setState({
+                redirectToMyLoans: true
+            });
+        })
     }
 
     render = () => (
         <div>
             { this.state.bookDeletedRedirect &&
                 <Redirect to='/mybooks' />
+            }
+            { this.state.redirectToMyLoans &&
+                <Redirect to='/loans' />
             }
             <Modal
                 open={this.state.bookCoverModalOpen}
@@ -120,12 +138,13 @@ class BookDetails extends React.Component {
                             </div>
                         }
                         {
-                            !this.state.belongsToUser &&
+                            !this.state.belongsToUser && !this.state.isActiveLoan &&
                             <div>
                                 <br/>
                                 <Button onClick={this.rent}>Wypożycz</Button>
                             </div>
                         }
+                        { this.state.isActiveLoan && <div><br/><b>Książka została Ci wypożyczona lub oczekuje na akceptację.</b></div>}
                     </Grid.Column>
                 </Grid>
             </Segment>

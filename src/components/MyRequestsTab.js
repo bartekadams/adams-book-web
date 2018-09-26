@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom';
 class MyRequestsTab extends React.Component {
     state = {
         loans: []
-    }
+    };
 
     componentDidMount = () => {
         getMyLoans({ token: this.props.token })
         .then(response => {
-            console.log(response)
             if(response.status === 'SUCCESS') {
                 this.setState({ loans: response.data.concat() })
             }
@@ -42,7 +41,7 @@ class MyRequestsTab extends React.Component {
                             <Table.Row key={loan.id}>
                                 <Table.Cell collapsing><Link to={'/books/' + loan.book_id}>{loan.book_title}</Link></Table.Cell>
                                 <Table.Cell>{statuses[loan.status]}</Table.Cell>
-                                <Table.Cell>{ (new Date(loan.created_at)).toLocaleString('pl-PL')     }</Table.Cell>
+                                <Table.Cell>{ (new Date(loan.created_at)).toLocaleString('pl-PL') }</Table.Cell>
                             </Table.Row>
                         ))
                     }

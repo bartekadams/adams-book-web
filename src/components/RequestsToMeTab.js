@@ -29,8 +29,15 @@ class RequestsToMeTab extends React.Component {
         })
         .then(response => {
             if(response.status === 'SUCCESS') {
-                console.log(response);
-                //this.setState({ loans: response.data.concat() })
+                const newLoans = this.state.loans.map((loan) => {
+                    if (loan.id !== response.data.id) {
+                        return loan;
+                    }
+                    const updatedLoan = { ...loan };
+                    updatedLoan.status = response.data.status;
+                    return updatedLoan;
+                });
+                this.setState({ loans: newLoans });
             } else if(response.status === 'ERROR') {
                 console.log(response);
             }
@@ -41,7 +48,10 @@ class RequestsToMeTab extends React.Component {
         deleteLoan({ token: this.props.token, id })
         .then(response => {
             if(response.status === 'SUCCESS') {
-
+                const newLoans = this.state.loans.filter((loan) => {
+                    return loan.id !== response.data.id;
+                });
+                this.setState({ loans: newLoans });
             }
         })
     }
@@ -60,6 +70,7 @@ class RequestsToMeTab extends React.Component {
                     <Table.Row>
                         <Table.HeaderCell>tytuł książki</Table.HeaderCell>
                         <Table.HeaderCell>wypożyczający</Table.HeaderCell>
+                        <Table.HeaderCell>utworzono</Table.HeaderCell>
                         <Table.HeaderCell>status</Table.HeaderCell>
                         <Table.HeaderCell/>
                         <Table.HeaderCell/>
@@ -72,6 +83,7 @@ class RequestsToMeTab extends React.Component {
                             <Table.Row key={loan.id}>
                                 <Table.Cell><Link to={'/books/' + loan.book_id}>{loan.book_title}</Link></Table.Cell>
                                 <Table.Cell>{loan.borrower_username}</Table.Cell>
+                                <Table.Cell>{ (new Date(loan.created_at)).toLocaleString('pl-PL') }</Table.Cell>
                                 <Table.Cell>{statuses[loan.status]}</Table.Cell>
                                 <Table.Cell collapsing>
                                     {

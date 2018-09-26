@@ -86,3 +86,7 @@ export const deleteLoan = async ({ token, id }) => {
 export const changeLoanStatus = async ({ token, id, newStatusData}) => {
   return await apiCall({urlSufix: `loans/${id}`, method: 'PATCH', token, requestData: newStatusData});
 };
+
+export const createLoan = async ({ token, data }) => {
+  return await apiCall({urlSufix: `loans/`, method: 'POST', token, requestData: data});
+};
