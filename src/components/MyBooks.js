@@ -12,7 +12,7 @@ class MyBooks extends React.Component {
         getMyBooks({ token: this.props.token })
         .then(response => {
             if(response.status === 'SUCCESS') {
-                this.setState({ books: response.data })
+                this.setState({ books: response.data.concat() })
             }
         })
     }

@@ -70,3 +70,19 @@ const fileUpload = async ({urlSufix, method, requestData, token}) => {
 export const addBookCover = async ({ token, id, data }) => {
   return await fileUpload({urlSufix: `books/${id}/update_book_cover`, method: 'PATCH', token, requestData: data});
 };
+
+export const getMyLoans = async ({ token }) => {
+  return await apiCall({urlSufix: 'loans/my_requests', method: 'GET', token});
+};
+
+export const getOtherLoans = async ({ token }) => {
+  return await apiCall({urlSufix: 'loans/other_requests', method: 'GET', token});
+};
+
+export const deleteLoan = async ({ token, id }) => {
+  return await apiCall({urlSufix: `loans/${id}`, method: 'DELETE', token});
+};
+
+export const changeLoanStatus = async ({ token, id, newStatusData}) => {
+  return await apiCall({urlSufix: `loans/${id}`, method: 'PATCH', token, requestData: newStatusData});
+};

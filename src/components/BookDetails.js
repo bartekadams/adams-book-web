@@ -54,6 +54,10 @@ class BookDetails extends React.Component {
         })
     }
 
+    rent = () => {
+
+    }
+
     render = () => (
         <div>
             { this.state.bookDeletedRedirect &&
@@ -113,6 +117,13 @@ class BookDetails extends React.Component {
                                 <br/>
                                 <Button as={ Link } to={'/books/' + this.state.book.id + '/edit'}>Edytuj</Button>
                                 <Button floated='right' onClick={this.openBookDeleteModal}>Usuń</Button>
+                            </div>
+                        }
+                        {
+                            !this.state.belongsToUser &&
+                            <div>
+                                <br/>
+                                <Button onClick={this.rent}>Wypożycz</Button>
                             </div>
                         }
                     </Grid.Column>
