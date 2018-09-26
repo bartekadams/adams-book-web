@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Form, Message, Input } from 'semantic-ui-react';
+import { Form, Message, Input } from 'semantic-ui-react';
 import { addBookCover } from '../api';
 import FieldError from './FieldError';
 import { Redirect, Link } from 'react-router-dom';
@@ -24,8 +24,10 @@ class PictureForm extends React.Component {
             id: this.props.id
         })
         .then(response => {
-            console.log(response);
             if(response.status === 'SUCCESS') {
+                if(this.props.successCallback) {
+                    this.props.successCallback(response.data.book_cover);
+                }
                 this.setState({ imageUploaded: true });
             } else if (response.status === 'ERROR') {
                 this.setState({ errors: { ...response.data } });
@@ -37,9 +39,10 @@ class PictureForm extends React.Component {
 
     render = () => {
         return (
-            <Segment>
+            <div>
                 {
-                    this.state.imageUploaded && <Redirect to={ '/books/' + this.props.id } />
+                    this.state.imageUploaded && this.props.redirectToBookDetails &&
+                    <Redirect to={ '/books/' + this.props.id } />
                 }
                 {
                     this.state.messageVisible &&
@@ -61,7 +64,7 @@ class PictureForm extends React.Component {
                         <FieldError errors={this.state.errors.book_cover || []}/>
                     </Form.Field>
                 </Form>
-            </Segment>
+            </div>
         );
     }
 }

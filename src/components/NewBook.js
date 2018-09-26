@@ -65,7 +65,14 @@ class NewBook extends React.Component {
         return (
             <div>
             { this.state.id &&
-                <PictureForm token={this.props.token} id={this.state.id} messageVisible={true} />
+                <Segment>
+                    <PictureForm
+                        token={this.props.token}
+                        id={this.state.id}
+                        messageVisible={true}
+                        redirectToBookDetails={true}
+                    />
+                </Segment>
             }
             { !this.state.id &&
                 <div>

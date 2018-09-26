@@ -30,8 +30,8 @@ export const apiRegister = async (registerData) => {
   return await apiCall({urlSufix: 'register', method: 'POST', requestData: registerData});
 };
 
-export const getNewestBooks = async ({ token, page }) => {
-  return await apiCall({urlSufix: `books/newest_books?page=${page}`, method: 'GET', token});
+export const getNewestBooks = async ({ token, page, limit }) => {
+  return await apiCall({urlSufix: `books/newest_books?page=${page}&limit=${limit}`, method: 'GET', token});
 };
 
 export const getMyBooks = async ({ token }) => {
@@ -43,7 +43,11 @@ export const getBookDetails = async ({ token, id }) => {
 };
 
 export const createNewBook = async ({ token, bookData }) => {
-  return await apiCall({urlSufix: `books/`, method: 'POST', token, requestData: bookData });
+  return await apiCall({urlSufix: 'books/', method: 'POST', token, requestData: bookData });
+};
+
+export const updateBook = async ({ token, bookData, id }) => {
+  return await apiCall({urlSufix: `books/${id}`, method: 'PATCH', token, requestData: bookData });
 };
 
 const fileUpload = async ({urlSufix, method, requestData, token}) => {

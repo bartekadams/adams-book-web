@@ -11,10 +11,10 @@ class Home extends React.Component {
     };
 
     loadBooks = () => {
-        getNewestBooks({ token: this.props.token, page: this.state.page })
+        getNewestBooks({ token: this.props.token, page: this.state.page, limit: 15 })
         .then(response => {
             if(response.status === 'SUCCESS') {
-                this.setState( prevState => ({ newestBooks: prevState.newestBooks.concat(response.data), page: prevState.page + 1 }));
+                this.setState( prevState => ({ newestBooks: prevState.newestBooks.concat(response.data), page: prevState.page + 1}));
             }
         });
     }
