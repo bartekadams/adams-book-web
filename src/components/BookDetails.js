@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, Image, Grid, Button, Modal } from 'semantic-ui-react';
-import { getBookDetails } from '../api';
-import { Link } from 'react-router-dom';
+import { getBookDetails, deleteBook } from '../api';
+import { Link, Redirect } from 'react-router-dom';
 
 class BookDetails extends React.Component {
     state = {
@@ -9,7 +9,9 @@ class BookDetails extends React.Component {
         createdAtText: '',
         owner: '',
         belongsToUser: false,
-        modalOpen: false
+        bookCoverModalOpen: false,
+        deleteBookModalOpen: false,
+        bookDeletedRedirect: false
     }
 
     componentDidMount = () => {
@@ -29,18 +31,38 @@ class BookDetails extends React.Component {
         })
     }
 
-    openModal = () => {
-        this.setState({ modalOpen: true });
-    }
+    openBookCoverModal = () => this.setState({ bookCoverModalOpen: true })
 
-    closeModal = () => this.setState({ modalOpen: false })
+    closeBookCoverModal = () => this.setState({ bookCoverModalOpen: false })
+
+    openBookDeleteModal = () => this.setState({ deleteBookModalOpen: true })
+
+    closeBookDeleteModal = () => this.setState({ deleteBookModalOpen: false })
+
+    deleteBook = () => {
+        deleteBook({
+            id: this.props.match.params.id,
+            token: this.props.token
+        })
+        .then(response => {
+            if(response.status === 'SUCCESS') {
+                this.setState({
+                    bookDeletedRedirect: true,
+                    deleteBookModalOpen: false
+                });
+            }
+        })
+    }
 
     render = () => (
         <div>
+            { this.state.bookDeletedRedirect &&
+                <Redirect to='/mybooks' />
+            }
             <Modal
-                open={this.state.modalOpen}
-                onClose={this.closeModal}
-                onClick={this.closeModal}
+                open={this.state.bookCoverModalOpen}
+                onClose={this.closeBookCoverModal}
+                onClick={this.closeBookCoverModal}
                 basic
             >
                 <Image centered src={this.state.book ? this.state.book.book_cover.url : ""}/>
@@ -48,13 +70,28 @@ class BookDetails extends React.Component {
             </Modal>
             { this.state.book &&
             <Segment>
+                <Modal
+                    open={this.state.deleteBookModalOpen}
+                    onClose={this.closeBookDeleteModal}
+                    size='tiny'
+                >
+                    <Modal.Header>Usuwanie książki</Modal.Header>
+                    <Modal.Content>
+                        <p>Czy na pewno chcesz usunąć tę książkę?</p>
+                        <h4>{this.state.book.name}</h4>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button positive onClick={this.closeBookDeleteModal}>Nie</Button>
+                        <Button negative onClick={this.deleteBook}>Tak</Button>
+                    </Modal.Actions>
+                </Modal>
                 <Grid className='book__details'>
                     <Grid.Column width={3}>
                         <Image
                             className="clickable"
                             centered
                             src={this.state.book.book_cover.small.url}
-                            onClick={this.openModal}
+                            onClick={this.openBookCoverModal}
                         />
                     </Grid.Column>
                     <Grid.Column width={13}>
@@ -75,6 +112,7 @@ class BookDetails extends React.Component {
                             <div>
                                 <br/>
                                 <Button as={ Link } to={'/books/' + this.state.book.id + '/edit'}>Edytuj</Button>
+                                <Button floated='right' onClick={this.openBookDeleteModal}>Usuń</Button>
                             </div>
                         }
                     </Grid.Column>

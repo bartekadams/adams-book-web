@@ -50,6 +50,10 @@ export const updateBook = async ({ token, bookData, id }) => {
   return await apiCall({urlSufix: `books/${id}`, method: 'PATCH', token, requestData: bookData });
 };
 
+export const deleteBook = async ({ token, id }) => {
+  return await apiCall({urlSufix: `books/${id}`, method: 'DELETE', token });
+};
+
 const fileUpload = async ({urlSufix, method, requestData, token}) => {
   let request = {
     method,
