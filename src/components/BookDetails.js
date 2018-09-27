@@ -144,7 +144,7 @@ class BookDetails extends React.Component {
                                 <Button onClick={this.rent}>Wypożycz</Button>
                             </div>
                         }
-                        { this.state.isActiveLoan && <div><br/><b>Książka została Ci wypożyczona lub oczekuje na akceptację.</b></div>}
+                        { !this.state.belongsToUser && this.state.isActiveLoan && <div><br/><b>Książka została Ci wypożyczona lub oczekuje na akceptację.</b></div>}
                     </Grid.Column>
                 </Grid>
             </Segment>

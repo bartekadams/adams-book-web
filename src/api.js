@@ -90,3 +90,7 @@ export const changeLoanStatus = async ({ token, id, newStatusData}) => {
 export const createLoan = async ({ token, data }) => {
   return await apiCall({urlSufix: `loans/`, method: 'POST', token, requestData: data});
 };
+
+export const searchBooks = async ({ token, search }) => {
+  return await apiCall({urlSufix: `books/search_books?search=${search}`, method: 'GET', token});
+};
