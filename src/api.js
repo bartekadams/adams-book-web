@@ -30,6 +30,10 @@ export const apiRegister = async (registerData) => {
   return await apiCall({urlSufix: 'register', method: 'POST', requestData: registerData});
 };
 
+export const changePassword = async ({ token, data }) => {
+  return await apiCall({ urlSufix: 'change_password', method: 'PATCH', token, requestData: data });
+};
+
 export const getNewestBooks = async ({ token, page, limit }) => {
   return await apiCall({urlSufix: `books/newest_books?page=${page}&limit=${limit}`, method: 'GET', token});
 };

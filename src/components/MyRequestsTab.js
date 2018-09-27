@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tab, Button, Table } from 'semantic-ui-react';
-import { getMyLoans, deleteLoan, changeLoanStatus } from '../api';
+import { Tab, Table } from 'semantic-ui-react';
+import { getMyLoans } from '../api';
 import { Link } from 'react-router-dom';
 
 class MyRequestsTab extends React.Component {
